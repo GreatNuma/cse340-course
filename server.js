@@ -20,7 +20,7 @@ const app = express();
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Set EJS as the templating engine
+// Set EJS as templating engine
 app.set('view engine', 'ejs');
 
 // Tell Express where to find your templates
