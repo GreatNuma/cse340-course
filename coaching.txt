@@ -1,0 +1,177 @@
+======================================================================
+WEEK 01 COACHING SESSION TRANSCRIPT
+Student: Great Tamarabrakemi Numa
+Role: Learning Coach and Software Mentor
+======================================================================
+
+[Coach]: Welcome! Just to be clear from the start, this is a coaching session, not a test. It is perfectly okay—and even encouraged—to say 'I don't know' or 'I made a mistake.' That's the fastest way we'll learn today.
+
+I am your Learning Coach and Software Mentor, and I'm really looking forward to reviewing your assignment with you and discussing your approach. Since we are in a chat interface, I'll be asking you to paste snippets of your code as we go so we can look at them together. 
+
+To get us started, what is your name?
+
+----------------------------------------------------------------------
+
+[Student]: Great Tamarabrakemi Numa
+
+----------------------------------------------------------------------
+
+[Coach]: It is great to meet you, Great! 
+
+To get us started, let's dive into our first topic: Express Routing. Could you please paste a snippet from your server.js file that shows how you set up your routes?
+
+----------------------------------------------------------------------
+
+[Student]: 
+import express from 'express';
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Serve static assets from the public folder
+app.use(express.static('public'));
+
+// Set EJS as the view engine
+app.set('view engine', 'ejs');
+
+// Route Definitions
+app.get('/', (req, res) => {
+  res.render('index', { title: 'Home' });
+});
+
+app.get('/organizations', (req, res) => {
+  res.render('organizations', { title: 'Organizations' });
+});
+
+app.get('/projects', (req, res) => {
+  res.render('projects', { title: 'Service Projects' });
+});
+
+app.get('/categories', (req, res) => {
+  res.render('categories', { title: 'Categories' });
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
+
+----------------------------------------------------------------------
+
+[Coach]: Thanks for sharing that snippet, Great! Your server.js file is clean and very well-structured.
+
+Looking at your route definitions, can you walk me through what happens behind the scenes in Express when a user enters the /projects URL in their web browser?
+
+----------------------------------------------------------------------
+
+[Student]: The browser asks for the page: my browser sends a request to my server for the /projects URL.
+
+Express finds the matching route: Express looks through my code and finds the app.get('/projects', ...) route that I set up.
+
+EJS builds the HTML: Express tells the EJS engine to take views/projects.ejs, fill in the title variable (Service Projects), and combine it with my header and footer partials.
+
+The server responds: Express sends the finished HTML page back to the browser, and it appears on the screen.
+
+----------------------------------------------------------------------
+
+[Coach]: Spot-on breakdown, Great! You explained the HTTP request-response cycle and EJS rendering logic perfectly.
+
+Now let's move on to our second topic: JavaScript Language Principles. Could you share a snippet of a custom JavaScript function from your project so we can talk through the logic and principles you used?
+
+----------------------------------------------------------------------
+
+[Student]:
+const saveTasksToStorage = (tasks) => {
+  try {
+    const serializedData = JSON.stringify(tasks);
+    localStorage.setItem('flowhub_tasks', serializedData);
+  } catch (error) {
+    console.error('Failed to save tasks to storage:', error);
+  }
+};
+
+----------------------------------------------------------------------
+
+[Coach]: That is a very clean utility function! Wrapping browser storage operations in a try...catch block is a great best practice.
+
+What was your reasoning for using JSON.stringify on the tasks data before passing it to localStorage.setItem?
+
+----------------------------------------------------------------------
+
+[Student]: localStorage in web browsers can only accept and store string data. If you pass a JavaScript array or object directly into localStorage.setItem(), JavaScript implicitly converts it using the default .toString() method, which turns your valuable data into the useless "[object Object]" string.
+
+Using JSON.stringify() serializes complex data structures—like arrays of task objects—into a valid JSON text string that preserves all your keys and values, making it possible to safely store the data and later reconstruct it using JSON.parse().
+
+----------------------------------------------------------------------
+
+[Coach]: That is a spot-on explanation! Understanding that localStorage only handles strings—and avoiding the dreaded [object Object] string coercion trap—is key to managing client-side state properly.
+
+Now let's move on to our third topic: EJS Partials and Pages. Could you share an EJS code snippet from your project that shows how you structured a page or incorporated partials?
+
+----------------------------------------------------------------------
+
+[Student]:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/header', { title: title }) %>
+</head>
+<body>
+  <%- include('partials/navigation') %>
+
+  <main class="container">
+    <h1>Welcome to FlowHub</h1>
+    <p>Your centralized platform for managing tasks and tracking activities efficiently.</p>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>
+
+----------------------------------------------------------------------
+
+[Coach]: That is a clean and well-structured EJS view! Using partials for your recurring UI components makes your templates much easier to maintain.
+
+What is the primary benefit of breaking your page structure down into reusable partials like partials/header, partials/navigation, and partials/footer?
+
+----------------------------------------------------------------------
+
+[Student]: The primary benefit of using reusable partials is maintainability through the DRY (Don't Repeat Yourself) principle.
+Instead of copying and pasting identical HTML structures for your headers, navigation bars, and footers into every single view file, you centralize them into dedicated component files. When you eventually need to update a navigation link, add a new meta tag, or change the copyright year in your footer, you only have to modify that single partial file rather than manually hunting down and editing every page on your site. This eliminates redundant code, drastically reduces the chance of human error, and keeps the project organized as it scales.
+
+----------------------------------------------------------------------
+
+[Coach]: You nailed it, Great! Embracing the DRY principle and having a single source of truth for your UI elements makes scaling and maintaining web applications drastically easier.
+
+We have reached our final required topic: Frontend CSS. Could you please share a snippet of CSS from your project that illustrates some of your layout techniques or styling choices?
+
+----------------------------------------------------------------------
+
+[Student]:
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+----------------------------------------------------------------------
+
+[Coach]: Great snippet! Using CSS custom properties (variables) keeps your design tokens clean and easily manageable.
+
+Looking at your layout rules, why did you choose to combine display: flex, flex-direction: column, and min-height: 100vh on the body element?
+
+----------------------------------------------------------------------
+
+[Student]: min-height: 100vh forces the body element to take up at least 100% of the browser viewport's height. By turning the body into a vertical flex container using display: flex and flex-direction: column, you stack the structural components (header, main content, and footer) from top to bottom.
+Without this setup, if a page has very little content—like a short form or a brief notification screen—the footer would naturally float halfway up the page right under the text. This technique ensures that the main content area expands to fill any empty space, gracefully pushing the footer down so it always stays anchored at the bottom of the screen.
+
+----------------------------------------------------------------------
+
+[Coach]: That is a perfect explanation of the classic flexbox sticky footer technique! Ensuring the footer stays pinned to the bottom on short pages while flowing naturally on longer ones creates a polished user experience.
+
+All required discussion topics completed successfully!
+======================================================================
