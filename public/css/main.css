@@ -1,4 +1,4 @@
-/* Base Styles & Accessibility Standard */
+/* ===== Base Styles & Accessibility ===== */
 :root {
   --primary-color: #2c3e50;
   --secondary-color: #3498db;
@@ -7,7 +7,21 @@
   --light-text: #ffffff;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
 body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
@@ -16,27 +30,44 @@ body {
   line-height: 1.6;
 }
 
-header {
+a {
+  color: var(--secondary-color);
+}
+
+/* ===== Navigation ===== */
+nav {
   background-color: var(--primary-color);
   color: var(--light-text);
   padding: 1rem 2rem;
 }
 
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
 nav a {
   color: var(--light-text);
   text-decoration: none;
-  margin-right: 1.5rem;
   font-weight: 600;
 }
 
 nav a:hover,
-nav a:focus {
+nav a:focus-visible {
   text-decoration: underline;
   color: var(--secondary-color);
+  outline: none;
 }
 
+/* ===== Main Content ===== */
 main.content-container {
+  flex: 1;
   max-width: 900px;
+  width: 100%;
   margin: 2rem auto;
   padding: 2rem;
   background: var(--light-text);
@@ -44,8 +75,35 @@ main.content-container {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-h1 {
+h1,
+h2 {
   color: var(--primary-color);
+}
+
+.main-logo {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 1.5rem auto 0;
+}
+
+main ul {
+  padding-left: 1.25rem;
+}
+
+main ul li {
+  margin: 0.75rem 0;
+  font-size: 1.05rem;
+}
+
+main ul li img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-right: 0.5rem;
 }
 
 .categories-list {
@@ -58,26 +116,26 @@ h1 {
   font-size: 1.1rem;
 }
 
+/* ===== Footer ===== */
 footer {
   text-align: center;
   padding: 1.5rem;
   background-color: var(--primary-color);
   color: var(--light-text);
-  position: relative;
   width: 100%;
   margin-top: 3rem;
 }
 
-/* Mobile Responsive Design */
+/* ===== Mobile Responsive Design ===== */
 @media (max-width: 768px) {
-  nav {
-    display: flex;
+  nav ul {
     flex-direction: column;
     gap: 0.5rem;
   }
-  
+
   main.content-container {
     margin: 1rem;
     padding: 1rem;
+    width: auto;
   }
 }

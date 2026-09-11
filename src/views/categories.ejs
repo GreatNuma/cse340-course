@@ -1,15 +1,15 @@
-<%- include('partials/header', { title: title }) %>
+<%- include('partials/header', { title }) %>
 
 <main class="content-container">
-  <h1>Service Project Categories</h1>
-  <p>Explore our service initiatives by category:</p>
-  
-  <ul class="categories-list">
-    <li>Environmental</li>
-    <li>Educational</li>
-    <li>Community Service</li>
-    <li>Health and Wellness</li>
-  </ul>
+    <h1><%= title %></h1>
+    <p>Explore our service initiatives by category:</p>
+
+    <ul class="categories-list">
+        <li>Environmental</li>
+        <li>Educational</li>
+        <li>Community Service</li>
+        <li>Health and Wellness</li>
+    </ul>
 </main>
 
 <%- include('partials/footer') %>
