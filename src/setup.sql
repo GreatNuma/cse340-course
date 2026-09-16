@@ -23,11 +23,12 @@ VALUES
 -- ========================================
 CREATE TABLE project (
     project_id SERIAL PRIMARY KEY,
-    organization_id INTEGER NOT NULL REFERENCES organization(organization_id),
+    organization_id INTEGER NOT NULL,
     title VARCHAR(150) NOT NULL,
     description TEXT NOT NULL,
     location VARCHAR(150) NOT NULL,
-    date DATE NOT NULL
+    date DATE NOT NULL,
+    CONSTRAINT fk_project_organization FOREIGN KEY (organization_id) REFERENCES organization(organization_id)
 );
 
 -- ========================================
@@ -65,15 +66,6 @@ CREATE TABLE category (
 );
 
 -- ========================================
--- Project-Category Junction Table
--- ========================================
-CREATE TABLE project_category (
-    project_id INTEGER NOT NULL REFERENCES project(project_id),
-    category_id INTEGER NOT NULL REFERENCES category(category_id),
-    PRIMARY KEY (project_id, category_id)
-);
-
--- ========================================
 -- Insert sample data: Categories
 -- ========================================
 INSERT INTO category (name)
@@ -82,6 +74,17 @@ VALUES
 ('Educational'),
 ('Community Service'),
 ('Health and Wellness');
+
+-- ========================================
+-- Project-Category Junction Table
+-- ========================================
+CREATE TABLE project_category (
+    project_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+    PRIMARY KEY (project_id, category_id),
+    CONSTRAINT fk_project_category_project FOREIGN KEY (project_id) REFERENCES project(project_id),
+    CONSTRAINT fk_project_category_category FOREIGN KEY (category_id) REFERENCES category(category_id)
+);
 
 -- ========================================
 -- Insert sample data: Project-Category Associations
