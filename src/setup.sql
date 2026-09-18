@@ -58,6 +58,12 @@ VALUES
 (3, 'Community Clean-Up Day', 'Organizing volunteers to clean up parks and public spaces around town.', 'Sugar City, ID', '2026-05-20');
 
 -- ========================================
+-- Shift sample project dates into the future
+-- ========================================
+UPDATE project
+SET date = date + INTERVAL '1 year';
+
+-- ========================================
 -- Category Table
 -- ========================================
 CREATE TABLE category (

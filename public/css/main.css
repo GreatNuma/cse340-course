@@ -116,6 +116,33 @@ main ul li img {
   font-size: 1.1rem;
 }
 
+/* ===== Category Tags ===== */
+.tag-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+}
+
+.tag-list li {
+  background-color: var(--secondary-color);
+  color: var(--light-text);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.tag-list li a {
+  color: var(--light-text);
+  text-decoration: none;
+}
+
+.tag-list li a:hover {
+  text-decoration: underline;
+}
+
 /* ===== Footer ===== */
 footer {
   text-align: center;

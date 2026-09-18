@@ -1,0 +1,19 @@
+<%- include('partials/header', { title }) %>
+
+<main class="content-container">
+    <h1><%= title %></h1>
+
+    <h2><%= projectDetails.title %></h2>
+    <p>Sponsored by: <a href="/organization/<%= projectDetails.organization_id %>"><%= projectDetails.organization_name %></a></p>
+    <p><%= new Date(projectDetails.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %> — <%= projectDetails.location %></p>
+    <p><%= projectDetails.description %></p>
+
+    <h3>Categories</h3>
+    <ul class="tag-list">
+        <% categories.forEach(category => { %>
+            <li><a href="/category/<%= category.category_id %>"><%= category.name %></a></li>
+        <% }); %>
+    </ul>
+</main>
+
+<%- include('partials/footer') %>
