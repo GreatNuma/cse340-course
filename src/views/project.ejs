@@ -8,6 +8,8 @@
     <p><%= new Date(projectDetails.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %> — <%= projectDetails.location %></p>
     <p><%= projectDetails.description %></p>
 
+    <p><a href="/edit-project/<%= projectDetails.project_id %>">Edit Project</a></p>
+
     <h3>Categories</h3>
     <ul class="tag-list">
         <% categories.forEach(category => { %>
