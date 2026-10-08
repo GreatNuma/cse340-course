@@ -4,6 +4,7 @@ import { body, validationResult } from 'express-validator';
 import { getUpcomingProjects, getProjectDetails, createProject, updateProject } from '../models/projects.js';
 import { getCategoriesForProject } from '../models/categories.js';
 import { getAllOrganizations } from '../models/organizations.js';
+import { addVolunteer, removeVolunteer, isVolunteering } from '../models/volunteers.js';
 
 // Validation rules for the project form (used for both create and edit)
 const projectValidation = [
@@ -41,7 +42,12 @@ const showProjectDetailsPage = async (req, res) => {
     const categories = await getCategoriesForProject(projectId);
     const title = 'Service Project Details';
 
-    res.render('project', { title, projectDetails, categories });
+    let isUserVolunteering = false;
+    if (req.session.user) {
+        isUserVolunteering = await isVolunteering(req.session.user.user_id, projectId);
+    }
+
+    res.render('project', { title, projectDetails, categories, isUserVolunteering });
 };
 
 const showNewProjectForm = async (req, res) => {
@@ -106,6 +112,26 @@ const processEditProjectForm = async (req, res) => {
     }
 };
 
+const processVolunteerForm = async (req, res) => {
+    const projectId = req.params.id;
+    const userId = req.session.user.user_id;
+
+    await addVolunteer(userId, projectId);
+    req.flash('success', 'You have signed up to volunteer for this project!');
+    res.redirect(`/project/${projectId}`);
+};
+
+const processUnvolunteerForm = async (req, res) => {
+    const projectId = req.params.id;
+    const userId = req.session.user.user_id;
+
+    await removeVolunteer(userId, projectId);
+    req.flash('success', 'You have removed yourself as a volunteer for this project.');
+
+    const redirectTo = req.body.redirectTo === 'dashboard' ? '/dashboard' : `/project/${projectId}`;
+    res.redirect(redirectTo);
+};
+
 // Export any controller functions
 export {
     showProjectsPage,
@@ -114,5 +140,7 @@ export {
     processNewProjectForm,
     showEditProjectForm,
     processEditProjectForm,
+    processVolunteerForm,
+    processUnvolunteerForm,
     projectValidation
 };

@@ -193,6 +193,32 @@ form button[type="submit"]:hover {
   background-color: var(--primary-color);
 }
 
+/* ===== Tables ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: var(--primary-color);
+  color: var(--light-text);
+}
+
+/* ===== Volunteer Inline Forms ===== */
+form[style*="inline"] button {
+  margin-left: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.9rem;
+}
+
 /* ===== Flash Messages ===== */
 .alert {
     padding: 15px;

@@ -8,6 +8,19 @@
     <p><%= new Date(projectDetails.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %> — <%= projectDetails.location %></p>
     <p><%= projectDetails.description %></p>
 
+    <% if (user) { %>
+        <% if (isUserVolunteering) { %>
+            <p>You are volunteering for this project.</p>
+            <form action="/project/<%= projectDetails.project_id %>/unvolunteer" method="POST">
+                <button type="submit">Remove Myself as Volunteer</button>
+            </form>
+        <% } else { %>
+            <form action="/project/<%= projectDetails.project_id %>/volunteer" method="POST">
+                <button type="submit">Volunteer for this Project</button>
+            </form>
+        <% } %>
+    <% } %>
+
     <% if (user && user.role_name === 'admin') { %>
         <p><a href="/edit-project/<%= projectDetails.project_id %>">Edit Project</a></p>
     <% } %>
